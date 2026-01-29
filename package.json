@@ -1,0 +1,28 @@
+{
+  "name": "remotion-video-exploration",
+  "version": "1.0.0",
+  "description": "A beautiful day/night sky animation created with Remotion",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render SkyAnimation out/sky-animation.mp4",
+    "render": "remotion render SkyAnimation",
+    "upgrade": "remotion upgrade"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:39963/git/SeanSmithDesign/Remotion-video-exploration"
+  },
+  "keywords": ["remotion", "video", "animation", "sky"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.410",
+    "@remotion/cli": "^4.0.410",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.410",
+    "typescript": "^5.9.3"
+  }
+}
