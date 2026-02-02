@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stage Microphone - Art Deco Futurism</title>
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f4d03f;
+      --teal: #008080;
+      --teal-light: #20b2aa;
+      --purple: #4a0e4e;
+      --purple-light: #7b2d8e;
+      --dark-bg: #0a0a0f;
+      --stage-dark: #050508;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      overflow: hidden;
+      font-family: system-ui;
+      background: var(--dark-bg);
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark-bg);
+    }
+
+    /* Camera movement container */
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: cameraPan 12s ease-in-out infinite;
+    }
+
+    @keyframes cameraPan {
+      0% { transform: translateX(0%); }
+      30% { transform: translateX(-8%); }
+      70% { transform: translateX(5%); }
+      100% { transform: translateX(0%); }
+    }
+
+    /* Background ambient glow */
+    .ambient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 30%,
+        rgba(74, 14, 78, 0.15) 0%,
+        var(--dark-bg) 50%,
+        #000005 100%
+      );
+      animation: ambientPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes ambientPulse {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 1; }
+    }
+
+    /* Light rays */
+    .light-rays {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .ray {
+      position: absolute;
+      top: -20%;
+      height: 140%;
+      filter: blur(8px);
+      transform-origin: top center;
+    }
+
+    .ray-1 { left: 15%; width: 4%; background: linear-gradient(to bottom, var(--gold) 0%, transparent 70%); animation: rayAnim1 8s ease-in-out infinite; opacity: 0.25; }
+    .ray-2 { left: 25%; width: 3%; background: linear-gradient(to bottom, var(--teal) 0%, transparent 70%); animation: rayAnim2 6s ease-in-out infinite; opacity: 0.2; }
+    .ray-3 { left: 35%; width: 5%; background: linear-gradient(to bottom, var(--purple-light) 0%, transparent 70%); animation: rayAnim3 7s ease-in-out infinite; opacity: 0.22; }
+    .ray-4 { left: 45%; width: 4%; background: linear-gradient(to bottom, var(--gold-light) 0%, transparent 70%); animation: rayAnim4 5s ease-in-out infinite; opacity: 0.3; }
+    .ray-5 { left: 55%; width: 3%; background: linear-gradient(to bottom, var(--teal-light) 0%, transparent 70%); animation: rayAnim2 7s ease-in-out infinite; opacity: 0.18; }
+    .ray-6 { left: 65%; width: 6%; background: linear-gradient(to bottom, var(--gold) 0%, transparent 70%); animation: rayAnim3 6s ease-in-out infinite; opacity: 0.2; }
+    .ray-7 { left: 75%; width: 4%; background: linear-gradient(to bottom, var(--purple-light) 0%, transparent 70%); animation: rayAnim1 8s ease-in-out infinite; opacity: 0.25; }
+    .ray-8 { left: 20%; width: 3%; background: linear-gradient(to bottom, var(--teal) 0%, transparent 70%); animation: rayAnim4 9s ease-in-out infinite; opacity: 0.15; }
+    .ray-9 { left: 60%; width: 5%; background: linear-gradient(to bottom, var(--gold-light) 0%, transparent 70%); animation: rayAnim1 5.5s ease-in-out infinite; opacity: 0.22; }
+    .ray-10 { left: 40%; width: 3%; background: linear-gradient(to bottom, var(--teal-light) 0%, transparent 70%); animation: rayAnim3 6.5s ease-in-out infinite; opacity: 0.18; }
+
+    @keyframes rayAnim1 {
+      0%, 100% { transform: rotate(-15deg); opacity: 0.2; }
+      50% { transform: rotate(-12deg); opacity: 0.35; }
+    }
+    @keyframes rayAnim2 {
+      0%, 100% { transform: rotate(10deg); opacity: 0.15; }
+      50% { transform: rotate(13deg); opacity: 0.28; }
+    }
+    @keyframes rayAnim3 {
+      0%, 100% { transform: rotate(-5deg); opacity: 0.18; }
+      50% { transform: rotate(-2deg); opacity: 0.32; }
+    }
+    @keyframes rayAnim4 {
+      0%, 100% { transform: rotate(5deg); opacity: 0.22; }
+      50% { transform: rotate(8deg); opacity: 0.38; }
+    }
+
+    /* Art deco accents */
+    .deco-triangle {
+      position: absolute;
+      top: 8%;
+      left: 5%;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid var(--gold);
+      opacity: 0.15;
+      filter: blur(1px);
+      animation: float1 4s ease-in-out infinite;
+    }
+
+    .deco-diamond {
+      position: absolute;
+      top: 12%;
+      right: 8%;
+      width: 25px;
+      height: 25px;
+      background: var(--teal);
+      opacity: 0.12;
+      transform: rotate(45deg);
+      filter: blur(1px);
+      animation: float2 5s ease-in-out infinite;
+    }
+
+    .deco-line-left {
+      position: absolute;
+      top: 25%;
+      left: 3%;
+      width: 3px;
+      height: 80px;
+      background: var(--gold-light);
+      opacity: 0.2;
+      animation: float3 6s ease-in-out infinite;
+    }
+
+    .deco-line-right {
+      position: absolute;
+      top: 30%;
+      right: 4%;
+      width: 3px;
+      height: 60px;
+      background: var(--purple-light);
+      opacity: 0.18;
+      animation: float2 5s ease-in-out infinite reverse;
+    }
+
+    @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+    @keyframes float2 { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(8px); } }
+    @keyframes float3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
+
+    /* Spotlight */
+    .spotlight {
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 0%,
+        rgba(212, 175, 55, 0.08) 0%,
+        rgba(212, 175, 55, 0.04) 30%,
+        transparent 60%
+      );
+      animation: spotlightFlicker 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spotlightFlicker {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+
+    /* Stage floor */
+    .stage-floor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 18%;
+      background: linear-gradient(to bottom,
+        var(--stage-dark) 0%,
+        #0c0c12 50%,
+        #0a0a0f 100%
+      );
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .stage-edge {
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(212, 175, 55, 0.4) 20%,
+        rgba(212, 175, 55, 0.6) 50%,
+        rgba(212, 175, 55, 0.4) 80%,
+        transparent 100%
+      );
+    }
+
+    .floor-line {
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      height: 1px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(212, 175, 55, 0.05) 30%,
+        rgba(212, 175, 55, 0.08) 50%,
+        rgba(212, 175, 55, 0.05) 70%,
+        transparent 100%
+      );
+    }
+
+    .floor-line:nth-child(2) { top: 20%; }
+    .floor-line:nth-child(3) { top: 38%; opacity: 0.8; }
+    .floor-line:nth-child(4) { top: 56%; opacity: 0.6; }
+    .floor-line:nth-child(5) { top: 74%; opacity: 0.4; }
+
+    /* Microphone */
+    .microphone {
+      position: absolute;
+      left: 50%;
+      bottom: 12%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .mic-head {
+      width: 45px;
+      height: 63px;
+      border-radius: 50% 50% 45% 45%;
+      background: #1a1a1a;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .mic-grille {
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .mic-grille:nth-child(1) { top: 11px; }
+    .mic-grille:nth-child(2) { top: 20px; }
+    .mic-grille:nth-child(3) { top: 29px; }
+    .mic-grille:nth-child(4) { top: 38px; }
+    .mic-grille:nth-child(5) { top: 47px; }
+
+    .mic-neck {
+      width: 11px;
+      height: 18px;
+      background: #1a1a1a;
+      border-left: 1px solid var(--gold);
+      border-right: 1px solid var(--gold);
+      margin: 0 auto;
+    }
+
+    .mic-pole {
+      width: 7px;
+      height: 144px;
+      background: linear-gradient(to right, #0a0a0a, #2a2a2a, #0a0a0a);
+      border-left: 1px solid rgba(212, 175, 55, 0.3);
+      border-right: 1px solid rgba(212, 175, 55, 0.3);
+      margin: 0 auto;
+    }
+
+    .mic-base {
+      width: 54px;
+      height: 7px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      margin: 0 auto;
+    }
+
+    /* Walking figure */
+    .figure {
+      position: absolute;
+      bottom: 12%;
+      width: 102px;
+      height: 272px;
+      animation: figureWalk 12s ease-in-out infinite;
+    }
+
+    @keyframes figureWalk {
+      0% { left: -5%; }
+      15% { left: 28%; }
+      85% { left: 41%; }
+      100% { left: 43%; }
+    }
+
+    .figure-head {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 47px;
+      border-radius: 50% 50% 45% 45%;
+      background: #0a0a0f;
+      animation: bodyBob 0.5s ease-in-out infinite;
+    }
+
+    .figure-neck {
+      position: absolute;
+      top: 42px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 13px;
+      background: #0a0a0f;
+    }
+
+    .figure-torso {
+      position: absolute;
+      top: 51px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 47px;
+      height: 76px;
+      background: #0a0a0f;
+      border-radius: 10px 10px 5px 5px;
+    }
+
+    .figure-arm-left {
+      position: absolute;
+      top: 55px;
+      left: 20%;
+      width: 12px;
+      height: 64px;
+      background: #0a0a0f;
+      border-radius: 6px;
+      transform-origin: top center;
+      animation: armSwingLeft 0.5s ease-in-out infinite;
+    }
+
+    .figure-arm-right {
+      position: absolute;
+      top: 55px;
+      right: 20%;
+      width: 12px;
+      height: 64px;
+      background: #0a0a0f;
+      border-radius: 6px;
+      transform-origin: top center;
+      animation: armSwingRight 0.5s ease-in-out infinite;
+    }
+
+    .figure-leg-left {
+      position: absolute;
+      top: 123px;
+      left: 32%;
+      width: 15px;
+      height: 81px;
+      background: #0a0a0f;
+      border-radius: 7px;
+      transform-origin: top center;
+      animation: legSwingLeft 0.5s ease-in-out infinite;
+    }
+
+    .figure-leg-right {
+      position: absolute;
+      top: 123px;
+      right: 32%;
+      width: 15px;
+      height: 81px;
+      background: #0a0a0f;
+      border-radius: 7px;
+      transform-origin: top center;
+      animation: legSwingRight 0.5s ease-in-out infinite;
+    }
+
+    @keyframes bodyBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      25%, 75% { transform: translateX(-50%) translateY(-3px); }
+    }
+
+    @keyframes armSwingLeft {
+      0%, 100% { transform: rotate(-20deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    @keyframes armSwingRight {
+      0%, 100% { transform: rotate(20deg); }
+      50% { transform: rotate(-20deg); }
+    }
+
+    @keyframes legSwingLeft {
+      0%, 100% { transform: rotate(25deg); }
+      50% { transform: rotate(-25deg); }
+    }
+
+    @keyframes legSwingRight {
+      0%, 100% { transform: rotate(-25deg); }
+      50% { transform: rotate(25deg); }
+    }
+
+    /* Vignette */
+    .vignette {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 50%,
+        transparent 30%,
+        rgba(0, 0, 0, 0.4) 70%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    .top-fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 20%;
+      background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    .info {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      font-size: 12px;
+      opacity: 0.6;
+      text-align: center;
+      z-index: 100;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="scene">
+      <div class="ambient"></div>
+
+      <!-- Light rays -->
+      <div class="light-rays">
+        <div class="ray ray-1"></div>
+        <div class="ray ray-2"></div>
+        <div class="ray ray-3"></div>
+        <div class="ray ray-4"></div>
+        <div class="ray ray-5"></div>
+        <div class="ray ray-6"></div>
+        <div class="ray ray-7"></div>
+        <div class="ray ray-8"></div>
+        <div class="ray ray-9"></div>
+        <div class="ray ray-10"></div>
+      </div>
+
+      <!-- Art deco accents -->
+      <div class="deco-triangle"></div>
+      <div class="deco-diamond"></div>
+      <div class="deco-line-left"></div>
+      <div class="deco-line-right"></div>
+
+      <!-- Spotlight -->
+      <div class="spotlight"></div>
+
+      <!-- Stage floor -->
+      <div class="stage-floor">
+        <div class="stage-edge"></div>
+        <div class="floor-line"></div>
+        <div class="floor-line"></div>
+        <div class="floor-line"></div>
+        <div class="floor-line"></div>
+      </div>
+
+      <!-- Microphone -->
+      <div class="microphone">
+        <div class="mic-head">
+          <div class="mic-grille"></div>
+          <div class="mic-grille"></div>
+          <div class="mic-grille"></div>
+          <div class="mic-grille"></div>
+          <div class="mic-grille"></div>
+        </div>
+        <div class="mic-neck"></div>
+        <div class="mic-pole"></div>
+        <div class="mic-base"></div>
+      </div>
+
+      <!-- Walking figure -->
+      <div class="figure">
+        <div class="figure-head"></div>
+        <div class="figure-neck"></div>
+        <div class="figure-torso"></div>
+        <div class="figure-arm-left"></div>
+        <div class="figure-arm-right"></div>
+        <div class="figure-leg-left"></div>
+        <div class="figure-leg-right"></div>
+      </div>
+
+      <!-- Overlays -->
+      <div class="vignette"></div>
+      <div class="top-fade"></div>
+    </div>
+
+    <div class="info">STAGE MICROPHONE • 12s loop</div>
+  </div>
+</body>
+</html>
